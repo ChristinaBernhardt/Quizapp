@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body onload="init()">
 
 
     <nav class="navbar bg-body-tertiary">
@@ -29,27 +29,27 @@
     <div class="container">
         <div class="card border-light mb-3">
             <img class="card-img-top" src="img/quiz.png">
-            <h5 class="card-header">Frage</h5>
+            <h5 id="questionText" class="card-header">Frage</h5>
             <div class="card-body">
 
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card quizAnswerCard mb-2" onclick="answer('answer1')">
+                    <div id="answer1" class="card-body">
                         Antwort </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card quizAnswerCard mb-2" onclick="answer('answer2')">
+                    <div id="answer2" class="card-body">
                         Antwort </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card quizAnswerCard mb-2" onclick="answer('answer3')">
+                    <div id="answer3" class="card-body">
                         Antwort </div>
                 </div>
-                <div class="card mb-2">
-                    <div class="card-body">
+                <div class="card quizAnswerCard mb-2" onclick="answer('answer4')">
+                    <div id="answer4" class="card-body">
                         Antwort </div>
                 </div>
                 <div class="question-footer">
-                    <div><b>1 </b>von <b>5 </b>Fragen</div>
+                    <div><b>1 </b>von <b id="counter">5 </b> Fragen</div>
                     <button type="button" class="btn btn-dark">Nächste Frage</button>
                 </div>
             </div>
