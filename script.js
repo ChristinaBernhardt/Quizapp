@@ -72,6 +72,9 @@ function answer(selection){
     let selectedQuestionNumber = selection.slice(-1);
     console.log('right answer is ', question['right_answer']);
     console.log('selected Question Number ', selectedQuestionNumber);
+
+let idOfRightAnswer = `answer${question['right_answer']}`;
+
     if (selectedQuestionNumber == question['right_answer']) {
         console.log('geil!!!');   
         document.getElementById(selection).parentNode.classList.add('bg-success');     
@@ -79,15 +82,11 @@ function answer(selection){
     else {
         console.log('fail'); 
         document.getElementById(selection).parentNode.classList.add('bg-danger');  
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success'); 
 
     }
-// if (selection === questions[currentQuestion] === [right_answer]) {
-//     console.log('right answer ', selection);
-    // document.getElementById(selection).classList.add("showgreen");
-    
-// }
-// else
-// {
-    // document.getElementById(`likeicon-red${index}`).classList.add("showred");
-// }
+   
+    document.getElementById('button').disabled = false;
+
 }
+
