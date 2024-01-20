@@ -73,10 +73,12 @@ function answer(selection){
     console.log('right answer is ', question['right_answer']);
     console.log('selected Question Number ', selectedQuestionNumber);
     if (selectedQuestionNumber == question['right_answer']) {
-        console.log('geil!!!');        
+        console.log('geil!!!');   
+        document.getElementById(selection).parentNode.classList.add('bg-success');     
     }
     else {
         console.log('fail'); 
+        document.getElementById(selection).parentNode.classList.add('bg-danger');  
 
     }
 // if (selection === questions[currentQuestion] === [right_answer]) {
