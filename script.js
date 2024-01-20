@@ -47,46 +47,58 @@ let questions = [
         "answer4": "336",
         "right_answer": 4
     }
-
 ];
 
-let currentQuestion = 2;
+let currentQuestion = 0;
 
-function init(){
-       document.getElementById('counter').innerHTML=questions.length;
-       showQuestion();
+function init() {
+    document.getElementById('counter').innerHTML = questions.length;
+    showQuestion();
 }
 
-function showQuestion(){
-let question = questions[currentQuestion];
-document.getElementById('questionText').innerHTML = question['question'];
-document.getElementById('answer1').innerHTML = question['answer1'];
-document.getElementById('answer2').innerHTML = question['answer2'];
-document.getElementById('answer3').innerHTML = question['answer3'];
-document.getElementById('answer4').innerHTML = question['answer4'];
+function showQuestion() {
+    document.getElementById('currentQuestion').innerHTML = `${currentQuestion + 1}`;
+    let question = questions[currentQuestion];
+    document.getElementById('questionText').innerHTML = question['question'];
+    document.getElementById('answer1').innerHTML = question['answer1'];
+    document.getElementById('answer2').innerHTML = question['answer2'];
+    document.getElementById('answer3').innerHTML = question['answer3'];
+    document.getElementById('answer4').innerHTML = question['answer4'];
 }
 
-function answer(selection){
+function answer(selection) {
     let question = questions[currentQuestion];
     console.log('selected answer is ', selection);
     let selectedQuestionNumber = selection.slice(-1);
     console.log('right answer is ', question['right_answer']);
     console.log('selected Question Number ', selectedQuestionNumber);
-
-let idOfRightAnswer = `answer${question['right_answer']}`;
-
+    let idOfRightAnswer = `answer${question['right_answer']}`;
     if (selectedQuestionNumber == question['right_answer']) {
-        console.log('geil!!!');   
-        document.getElementById(selection).parentNode.classList.add('bg-success');     
+        console.log('geil!!!');
+        document.getElementById(selection).parentNode.classList.add('bg-success');
     }
     else {
-        console.log('fail'); 
-        document.getElementById(selection).parentNode.classList.add('bg-danger');  
-        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success'); 
-
+        console.log('fail');
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
-   
     document.getElementById('button').disabled = false;
-
 }
 
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('button').disabled = true;
+    resetButtons();
+    showQuestion();
+}
+
+function resetButtons() {
+    document.getElementById('answer1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer4').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer4').parentNode.classList.remove('bg-success');
+}
