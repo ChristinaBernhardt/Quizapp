@@ -40,18 +40,20 @@ let questions = [
         "right_answer": 4
     },
     {
-        "question": "Wie viele Einkerbungen hat ein Golfball?",
-        "answer1": "33",
-        "answer2": "36",
-        "answer3": "333",
-        "answer4": "336",
+        "question": "Wie lang ist die Linie, die man mit einem Bleistift maximal zeichnen kann?",
+        "answer1": "5 km",
+        "answer2": "56 km",
+        "answer3": "556 km",
+        "answer4": "5600 km",
         "right_answer": 4
     }
 ];
 
 let rightQuestions = 0;
-
 let currentQuestion = 0;
+let success = new Audio('audio/success.mp3');
+let fail = new Audio('audio/fail.mp3');
+let won = new Audio('audio/won.mp3');
 
 function init() {
     document.getElementById('counter').innerHTML = questions.length;
@@ -59,41 +61,32 @@ function init() {
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) {
-        document.getElementById('endScreen').style = '';
-        document.getElementById('questionBody').style = 'display: none';
-        document.getElementById('counter1').innerHTML = questions.length;
-        document.getElementById('amountRightQuestions').innerHTML = rightQuestions;
-        document.getElementById('headerImg').src = "img/trophy.png";
+    if (gameIsOver()) {
+        won.play();
+        showEndScreen();
     }
     else {
-        let question = questions[currentQuestion];
-        document.getElementById('currentQuestion').innerHTML = `${currentQuestion + 1} `;
-        document.getElementById('counter1').innerHTML = `${counter} `;
-        document.getElementById('questionText').innerHTML = question['question'];
-        document.getElementById('answer1').innerHTML = question['answer1'];
-        document.getElementById('answer2').innerHTML = question['answer2'];
-        document.getElementById('answer3').innerHTML = question['answer3'];
-        document.getElementById('answer4').innerHTML = question['answer4'];
+        updateToNextQuestion();
     }
+}
+
+function gameIsOver() {
+    return currentQuestion >= questions.length;
 }
 
 function answer(selection) {
     let question = questions[currentQuestion];
-    console.log('selected answer is ', selection);
     let selectedQuestionNumber = selection.slice(-1);
-    console.log('right answer is ', question['right_answer']);
-    console.log('selected Question Number ', selectedQuestionNumber);
     let idOfRightAnswer = `answer${question['right_answer']}`;
     if (selectedQuestionNumber == question['right_answer']) {
-        console.log('geil!!!');
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        success.play();
         rightQuestions++;
     }
     else {
-        console.log('fail');
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        fail.play();
     }
     document.getElementById('button').disabled = false;
 }
@@ -116,3 +109,38 @@ function resetButtons() {
     document.getElementById('answer4').parentNode.classList.remove('bg-success');
 }
 
+function restartGame() {//Neustart des Spiels
+    document.getElementById('headerImg').src = "img/quiz.png";//Trophy wird wieder ausgeblendet
+    document.getElementById('questionBody').style = ''; //Startscreen wird eingeblendet
+    document.getElementById('endScreen').style = 'display: none'; //Endscreen wird ausgeblendet
+    rightQuestions = 0;
+    currentQuestion = 0;
+    init();
+}
+
+function updatePercent() {
+    let percent = (currentQuestion + 1) / questions.length;
+    percent = Math.round(percent * 100);
+    document.getElementById('progressBar').innerHTML = `${percent} %`;
+    document.getElementById('progressBar').style.width = `${percent}%`;
+}
+
+function updateToNextQuestion() {
+    updatePercent()
+    let question = questions[currentQuestion];
+    document.getElementById('currentQuestion').innerHTML = `${currentQuestion + 1} `;
+    document.getElementById('counter1').innerHTML = `${counter} `;
+    document.getElementById('questionText').innerHTML = question['question'];
+    document.getElementById('answer1').innerHTML = question['answer1'];
+    document.getElementById('answer2').innerHTML = question['answer2'];
+    document.getElementById('answer3').innerHTML = question['answer3'];
+    document.getElementById('answer4').innerHTML = question['answer4'];
+}
+
+function showEndScreen() {
+    document.getElementById('endScreen').style = '';
+    document.getElementById('questionBody').style = 'display: none';
+    document.getElementById('counter1').innerHTML = questions.length;
+    document.getElementById('amountRightQuestions').innerHTML = rightQuestions;
+    document.getElementById('headerImg').src = "img/trophy.png";
+}
