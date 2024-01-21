@@ -28,10 +28,20 @@
     </nav>
     <div class="container">
         <div class="card border-light mb-3">
-            <img class="card-img-top" src="img/quiz.png">
-            <h5 id="questionText" class="card-header">Frage</h5>
-            <div class="card-body">
+            <img id="headerImg" class="card-img-top" src="img/quiz.png">
+            <div class="card-body" id="endScreen" style="display: none;">
+                <div class="center">
+                    <h5>Quiz beendet</h5>
+                </div>
+                <div>
+                    
+                    <div class="center"><h5>Du hast <b id="amountRightQuestions">xxx</b> Fragen von <b id="counter1">xxx</b> richtig beantwortet.</h5>
+                    </div>
+                </div>
+            </div>
 
+            <div class="card-body" id="questionBody">
+                <h5 id="questionText" class="card-header">Frage</h5>
                 <div class="card quizAnswerCard mb-2" onclick="answer('answer1')">
                     <div id="answer1" class="card-body">
                         Antwort </div>
@@ -49,8 +59,9 @@
                         Antwort </div>
                 </div>
                 <div class="question-footer">
-                    <div><b id="currentQuestion">1 </b>von <b id="counter">5 </b> Fragen</div>
-                    <button onclick="nextQuestion()" id="button" type="button" class="btn btn-dark" disabled>Nächste Frage</button>
+                    <div><b id="currentQuestion">1 </b>von <b id="counter">xxx </b> Fragen</div>
+                    <button onclick="nextQuestion()" id="button" type="button" class="btn btn-dark" disabled>Nächste
+                        Frage</button>
                 </div>
             </div>
         </div>
